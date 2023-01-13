@@ -13,6 +13,6 @@ dotnet new ca-webapi -o {output folder}
 ```
 
 ```
-dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+dotnet ef dbcontext scaffold "Server=192.168.1.5;Database=NTLAGENTDB;user id=Nos12;password=Info2010;" Microsoft.EntityFrameworkCore.SqlServer -o Models
 
 ```
