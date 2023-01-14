@@ -1,29 +1,41 @@
 ﻿using Application.Common.Interfaces;
 using AutoMapper;
+using Domain.Common;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using ReflectionIT.Mvc.Paging;
 
 namespace Application.Publisher.Queries.GetPublishers;
 
-public record GetPublishersQuery : IRequest<IEnumerable<GetPublishersRes>>
+public record GetPublishersQuery : IRequest<GetPublishersRes>
 {
+    public int Page { get; set; } = 1;
     public string Name { get; set; } = string.Empty;
+    public string SortExpresstion { get; set; } = "Id";
 }
 
-
-public class GetPublishersQueryHandler : IRequestHandler<GetPublishersQuery, IEnumerable<GetPublishersRes>>
+public class GetPublishersQueryHandler : IRequestHandler<GetPublishersQuery, GetPublishersRes>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
-    public GetPublishersQueryHandler(IApplicationDbContext context, IMapper mapper)
+    private readonly AppSetting _appSetting;
+
+    public GetPublishersQueryHandler(IApplicationDbContext context, IMapper mapper, IOptions<AppSetting> appSetting)
     {
         _context = context;
         _mapper = mapper;
+        _appSetting = appSetting.Value;
     }
 
-    public async Task<IEnumerable<GetPublishersRes>> Handle(GetPublishersQuery request, CancellationToken cancellationToken)
+    public async Task<GetPublishersRes> Handle(GetPublishersQuery request, CancellationToken cancellationToken)
     {
         var q1 = _context.Publishers
+            .Select(a=> new GetPublishersResData
+            {
+                Id = a.Id,
+                Name = a.Name,
+            })
             .AsNoTracking()
             .AsQueryable();
 
@@ -32,11 +44,13 @@ public class GetPublishersQueryHandler : IRequestHandler<GetPublishersQuery, IEn
             q1 = q1.Where(a => a.Name.Contains(request.Name));
         }
 
-        return await q1.Select(a => new GetPublishersRes
+        var data = await PagingList.CreateAsync(q1, _appSetting.PageSize, request.Page, request.SortExpresstion, "Id");
+        return new GetPublishersRes
         {
-            Id = a.Id,
-            Name = a.Name,
-        }).ToListAsync(cancellationToken);      
+            PageCount = data.PageCount,
+            PageIndex = data.PageIndex,
+            Data = data,
+        };    
     }
 }
 

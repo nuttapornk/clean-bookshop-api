@@ -29,3 +29,6 @@ from root directory
 dotnet ef migrations add "initialDatabase" --project .\src\Infrastructure\ --startup-project .\src\WebApi\ --output-dir Persistence\Migrations
 
 dotnet ef migrations add "AddCategory" --project .\src\Infrastructure\ --startup-project .\src\WebApi\ --output-dir Persistence\Migrations
+
+
+dotnet ef migrations remove --project .\src\Infrastructure\ --startup-project .\src\WebApi\

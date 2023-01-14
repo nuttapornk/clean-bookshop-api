@@ -1,4 +1,6 @@
 ﻿using Application.Publisher.Queries.GetPublishers;
+using Azure.Core;
+using Domain.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -16,15 +18,14 @@ namespace WebApi.Controllers
         public async Task<IActionResult> Get(GetPublishersQuery req)
         {
             try
-            {
-                var data = await Mediator.Send(req);                
-                return Ok(data);
+            {                
+                var data = await Mediator.Send(req);
+                return Ok(ResponseHelper.Success(data));                
             }
             catch (Exception ex)
-            {                
-                return BadRequest(ex.Message);               
-            }
-                       
+            {
+                return BadRequest(ResponseHelper.Error(ex));
+            }                     
         }
 
     }
