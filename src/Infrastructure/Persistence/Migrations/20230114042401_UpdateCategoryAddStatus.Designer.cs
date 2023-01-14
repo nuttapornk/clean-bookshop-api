@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Persistence.Migrations
 {
-    [DbContext(typeof(BookShop1Context))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20230114042401_UpdateCategoryAddStatus")]
     partial class UpdateCategoryAddStatus
     {

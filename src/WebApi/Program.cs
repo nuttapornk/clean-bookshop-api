@@ -37,7 +37,7 @@ using (var scope = app.Services.CreateScope())
 	var service = scope.ServiceProvider;
 	try
 	{
-		var context = service.GetRequiredService<BookShop1Context>();
+		var context = service.GetRequiredService<AppDbContext>();
 		context.Database.Migrate();
 	}
 	catch (Exception ex)

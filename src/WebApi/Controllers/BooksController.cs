@@ -8,8 +8,8 @@ namespace WebApi.Controllers;
 [ApiController]
 public class BooksController : ApiControllerBase
 {
-    private readonly BookShop1Context _context;
-    public BooksController(BookShop1Context context)
+    private readonly AppDbContext _context;
+    public BooksController(AppDbContext context)
     {
         _context= context;
     }
