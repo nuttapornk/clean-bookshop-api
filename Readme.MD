@@ -15,6 +15,10 @@ Aside from .NET Core, numerous technologies are used within this solution includ
 - Automated testing with xUnit.net, Moq, and Shouldly
 - Scaffolding database first
 - Add migration
+- HttpMessageHandlers
+    - DebuggingHttpHandler
+    - ElasticLogHttpMessageHandler
+- 3 rd Http Request with restCharp,Refit
 
 
 ## Function
@@ -30,9 +34,6 @@ Aside from .NET Core, numerous technologies are used within this solution includ
     - ValidateHeaders
     - ValidateToken
 - ApiFilerException
-
-
-## CI/CD
 - github workflow
     - Code quality scan with sonarqube
     - Dotnet build test,publish
