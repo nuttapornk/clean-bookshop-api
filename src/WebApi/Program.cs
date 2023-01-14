@@ -1,6 +1,8 @@
 
 using Application;
 using Infrastructure;
+using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +29,22 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseHsts();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+
+	var service = scope.ServiceProvider;
+	try
+	{
+		var context = service.GetRequiredService<BookShop1Context>();
+		context.Database.Migrate();
+	}
+	catch (Exception ex)
+	{
+		var logger = service.GetRequiredService<ILogger<Program>>();
+		logger.LogError(ex, "An Error occurred sedding the Database.");
+	}
 }
 
 app.UseHttpsRedirection();

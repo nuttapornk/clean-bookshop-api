@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Persistence\Migrations\20230113165331_initialDatabase.cs" />
+    <Compile Remove="Persistence\Migrations\20230113165331_initialDatabase.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
 
@@ -14,7 +19,6 @@
     <Folder Include="Common\" />
     <Folder Include="Files\" />
     <Folder Include="Identity\" />
-    <Folder Include="Persistence\Configurations\" />
   </ItemGroup>
 
   <ItemGroup>

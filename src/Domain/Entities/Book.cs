@@ -24,4 +24,6 @@ public partial class Book
     public virtual Publisher? Publisher { get; set; }
 
     public virtual ICollection<Author> Authors { get; } = new List<Author>();
+
+    public virtual ICollection<Category> Categories { get; } = new List<Category>();
 }
