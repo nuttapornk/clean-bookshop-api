@@ -5,11 +5,11 @@ namespace Application.Common.Behaviours;
 
 public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<TRequest> _logger;
 
-    public UnhandledExceptionBehaviour(ILogger logger)
+    public UnhandledExceptionBehaviour(ILogger<TRequest> logger)
     {
-        _logger = logger;
+        _logger = logger; 
     }
     
     public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -21,7 +21,7 @@ public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavio
         catch (Exception ex)
         {
             var requestName = typeof(TRequest).Name;
-            _logger.LogError(ex, "Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
+            _logger.LogError(ex, "Unhandled Exception runing for Request : {Name} {@Request}", requestName, request);
             throw;
         }
     }

@@ -27,7 +27,7 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
         {
             var requestName = typeof(TRequest).Name;
 
-            _logger.LogWarning("CleanArchitecture Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}",
+            _logger.LogWarning("Performance behaviour Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}",
                 requestName, elapsedMilliseconds, request);
         }
 
