@@ -5,7 +5,7 @@
 ## Technologies
 Aside from .NET Core, numerous technologies are used within this solution including:
 - ✔ CQRS with MediatR
-- PipelineBehavior
+- ✔ PipelineBehavior
 - ✔ Validation with FluentValidation
 - Object-Object Mapping with AutoMapper
 - AutoMapper
