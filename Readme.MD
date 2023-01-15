@@ -1,20 +1,20 @@
-# Clean Architecture with .NET Core: Getting Started
+﻿# Clean Architecture with .NET Core: Getting Started
 - ref : https://github.com/jasontaylordev/CleanArchitecture
 - ref : https://jasontaylor.dev/clean-architecture-getting-started/
 
 ## Technologies
 Aside from .NET Core, numerous technologies are used within this solution including:
-- CQRS with MediatR
+- ✔ CQRS with MediatR
 - PipelineBehavior
-- Validation with FluentValidation
+- ✔ Validation with FluentValidation
 - Object-Object Mapping with AutoMapper
 - AutoMapper
-- Paging with ReflectionIT.Mvc.Paging
-- Data access with Entity Framework Core
-- Web API using ASP.NET Core
+- ✔ Paging with ReflectionIT.Mvc.Paging
+- ✔ Data access with Entity Framework Core
+- ✔ Web API using ASP.NET Core
 - Automated testing with xUnit.net, Moq, and Shouldly
-- Scaffolding database first
-- Add migration
+- ✔ Scaffolding database first
+- ✔ Add migration
 - HttpMessageHandlers
     - DebuggingHttpHandler
     - ElasticLogHttpMessageHandler
