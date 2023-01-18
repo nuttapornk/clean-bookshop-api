@@ -1,6 +1,7 @@
 ﻿# Clean Architecture with .NET Core: Getting Started
-- ref : https://github.com/jasontaylordev/CleanArchitecture
-- ref : https://jasontaylor.dev/clean-architecture-getting-started/
+- ref: https://github.com/jasontaylordev/CleanArchitecture
+- ref: https://jasontaylor.dev/clean-architecture-getting-started/
+- ref: https://medium.com/dotnet-hub/clean-architecture-with-dotnet-and-dotnet-core-aspnetcore-overview-introduction-getting-started-ec922e53bb97
 
 ## Technologies
 Aside from .NET Core, numerous technologies are used within this solution including:
@@ -15,11 +16,14 @@ Aside from .NET Core, numerous technologies are used within this solution includ
 - Automated testing with xUnit.net, Moq, and Shouldly
 - ✔ Scaffolding database first
 - ✔ Add migration
+- .NET Application Loging with Serilog
+    - example: https://medium.com/@matias.paulo84/net-core-serilog-elasticsearch-kibana-3bd080ff4c1e
+- open source database for log with ElasticSearch
+- open source user interface which allows us you visualize ElasticSearch data with Kibana
 - HttpMessageHandlers
     - DebuggingHttpHandler
     - ElasticLogHttpMessageHandler
 - 3 rd Http Request with restCharp,Refit
-
 
 ## Function
 - Memory cache with Redis

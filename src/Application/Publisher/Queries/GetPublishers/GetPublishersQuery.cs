@@ -20,16 +20,26 @@ public class GetPublishersQueryHandler : IRequestHandler<GetPublishersQuery, Get
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
     private readonly AppSetting _appSetting;
+    private readonly IMemoryCache _cache;
 
-    public GetPublishersQueryHandler(IApplicationDbContext context, IMapper mapper, IOptions<AppSetting> appSetting)
+    public GetPublishersQueryHandler(IApplicationDbContext context, 
+        IMapper mapper, 
+        IOptions<AppSetting> appSetting,
+        IMemoryCache cache )
     {
         _context = context;
         _mapper = mapper;
         _appSetting = appSetting.Value;
+        _cache = cache;
+
     }
 
     public async Task<GetPublishersRes> Handle(GetPublishersQuery request, CancellationToken cancellationToken)
     {
+
+        var temp = await _cache.GetObjectAsync<GetPublishersRes>("temp");
+        if (temp != null) return temp;
+
         var q1 = _context.Publishers
             .Select(a=> new GetPublishersResData
             {
@@ -45,12 +55,19 @@ public class GetPublishersQueryHandler : IRequestHandler<GetPublishersQuery, Get
         }
 
         var data = await PagingList.CreateAsync(q1, _appSetting.PageSize, request.Page, request.SortExpresstion, "Id");
-        return new GetPublishersRes
+
+        
+
+        var res = new GetPublishersRes
         {
             PageCount = data.PageCount,
             PageIndex = data.PageIndex,
             Data = data,
-        };    
+        };
+
+        await _cache.SetObjectAsync("temp", res);
+
+        return res;
     }
 }
 

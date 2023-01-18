@@ -18,6 +18,8 @@ public static class ConfigureServices
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
 
+        //services.AddTransient< IMemoryCache,RedisCacheService>();
+
         return services;
     }
 }
