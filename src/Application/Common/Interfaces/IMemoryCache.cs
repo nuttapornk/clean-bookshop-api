@@ -7,5 +7,7 @@ namespace Application.Common.Interfaces
         public Task SetObjectAsync<T>(string key, T value, double lifeSpan = 14400, bool sliding = false);
 
         public Task<T> GetObjectAsync<T>(string key);
+
+        public Task Remove(string key);
     }
 }

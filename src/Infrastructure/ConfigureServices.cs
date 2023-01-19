@@ -25,29 +25,44 @@ public static class ConfigureServices
         // Interface IApplicationDbContext DbContext for Datebase connection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<AppDbContext>());
 
-        services.AddTransient<IMemoryCache, RedisCacheService>();
-        //Set Redis
+        //Set Redis       
+        ConfigRedis(services, configuration);
+       
+
+        services.AddTransient<IDateTime, DatetimeService>();
+
+        //
+       
+        return services;
+    }
+
+    private static void ConfigRedis(IServiceCollection services, IConfiguration configuration)
+    {
         var RedisConnectionString = configuration.GetConnectionString("Redis");
         if (!string.IsNullOrEmpty(RedisConnectionString))
         {
-            
+            services.AddTransient<IMemoryCache, RedisCacheService>();
+            services.Configure<RedisCacheSetting>(configuration.GetSection("RedisSetting"));
 
+            RedisCacheSetting setting = new();
+            configuration.GetSection("RedisSetting").Bind(setting);
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = RedisConnectionString;
-                options.InstanceName = configuration.GetValue<string>("RedisSetting:InstanceName");
-                //options.ConfigurationOptions = new StackExchange.Redis.ConfigurationOptions()
-                //{
-                //    DefaultDatabase = configuration.GetValue<int>("RedisSetting:DefaultDatabase"),
-                //    ConnectRetry = configuration.GetValue<int>("RedisSetting:ConnectRetry")
-                //};
-            });                
-        }
-        
-        
+                options.InstanceName = setting.InstanceName;
 
-        services.AddTransient<IDateTime, DatetimeService>();
-        
-        return services;
+                options.ConfigurationOptions = new StackExchange.Redis.ConfigurationOptions
+                {
+                    EndPoints = { { setting.EndPointHost, setting.EndPointPort } },                    
+                    Ssl = setting.Ssl,
+                    DefaultDatabase = setting.DefaultDatabase,
+                    ConnectRetry = setting.ConnectRetry                   
+                };
+
+                //options.ConfigurationOptions.DefaultDatabase = setting.DefaultDatabase;
+                //options.ConfigurationOptions.ConnectRetry = setting.ConnectRetry;                
+            });
+        }
     }
+
 }
