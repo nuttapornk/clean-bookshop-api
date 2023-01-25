@@ -1,4 +1,4 @@
-﻿namespace Application.Publisher.Queries.GetPublishers;
+﻿namespace Application.Publishers.Queries.GetPublishers;
 
 public class GetPublishersRes
 {

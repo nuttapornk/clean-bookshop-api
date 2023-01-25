@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Application.Common.Interfaces;
 using Domain.Entities;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Application.Common.Interfaces;
 
 namespace Infrastructure.Persistence;
 
-public partial class AppDbContext : DbContext,IApplicationDbContext
+public class AppDbContext : DbContext,IApplicationDbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
+    private readonly IMediator _mediator;
+    public AppDbContext(DbContextOptions<AppDbContext> options,
+        IMediator mediator)
         : base(options)
     {
+        _mediator = mediator;
     }
 
     public virtual DbSet<Author> Authors { get; set; }
@@ -21,11 +23,19 @@ public partial class AppDbContext : DbContext,IApplicationDbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());                  
         base.OnModelCreating(builder);
-        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-               
-        OnModelCreatingPartial(builder);
     }
 
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+
+    }
+
+    public async Task<int> SaveChangeAsync(CancellationToken cancellationToken = default)
+    {
+        await _mediator.DispatchDomainEvents(this);
+        return await base.SaveChangesAsync(cancellationToken);
+    }
+    
 }

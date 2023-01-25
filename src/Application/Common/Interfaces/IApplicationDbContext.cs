@@ -8,5 +8,6 @@ public interface IApplicationDbContext
     DbSet<Domain.Entities.Publisher> Publishers { get; set; }
     DbSet<Domain.Entities.Author> Authors { get; set;  }
     DbSet<Domain.Entities.Category> Categories { get; set; }
-    //Task<int> SaveChangesAsync(CancellationToken cancellationToken);    
+
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);    
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain.Common;
 
 namespace Domain.Entities;
 
-public partial class Publisher
+public partial class Publisher : BaseEntity
 {
     public int Id { get; set; }
 

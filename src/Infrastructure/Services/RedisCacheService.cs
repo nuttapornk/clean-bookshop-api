@@ -21,7 +21,7 @@ public class RedisCacheService : IMemoryCache
         _cache = cache;
         _serializer = new Serializer(new SerializerOptions(preserveObjectReferences: true));
         _connectionString = configuration.GetConnectionString("Redis")
-            ?? throw new ArgumentNullException("ConnectionString:Redis");
+                            ?? throw new ArgumentNullException("ConnectionString:Redis");
         _alive = IsAlive();
 
     }
@@ -63,7 +63,7 @@ public class RedisCacheService : IMemoryCache
     {
         if (_alive)
         {
-            _cache.Remove(key);
+            await _cache.RemoveAsync(key);
         }
     }
 
@@ -76,7 +76,7 @@ public class RedisCacheService : IMemoryCache
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex.Message);            
+            _logger.LogError(ex.Message);
         }
         return false;   
     }

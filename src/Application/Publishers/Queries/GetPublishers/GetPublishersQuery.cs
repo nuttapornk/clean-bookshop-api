@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using ReflectionIT.Mvc.Paging;
 
-namespace Application.Publisher.Queries.GetPublishers;
+namespace Application.Publishers.Queries.GetPublishers;
 
 public record GetPublishersQuery : IRequest<GetPublishersRes>
 {
