@@ -2,6 +2,9 @@
 - ref: https://github.com/jasontaylordev/CleanArchitecture
 - ref: https://jasontaylor.dev/clean-architecture-getting-started/
 - ref: https://medium.com/dotnet-hub/clean-architecture-with-dotnet-and-dotnet-core-aspnetcore-overview-introduction-getting-started-ec922e53bb97
+- ref: https://github.com/iayti/CleanArchitecture
+- ref: https://medium.com/aspnetrun/microservices-architecture-on-net-3b4865eea03f
+- ref: https://github.com/aspnetrun/run-aspnetcore-microservices
 
 ## Technologies
 Aside from .NET Core, numerous technologies are used within this solution including:
@@ -20,10 +23,12 @@ Aside from .NET Core, numerous technologies are used within this solution includ
     - example: https://medium.com/@matias.paulo84/net-core-serilog-elasticsearch-kibana-3bd080ff4c1e
 - open source database for log with ElasticSearch
 - open source user interface which allows us you visualize ElasticSearch data with Kibana
+- Logstash->ElasticSearch->Kibana
 - HttpMessageHandlers
     - DebuggingHttpHandler
     - ElasticLogHttpMessageHandler
 - 3 rd Http Request with restCharp,Refit
+- Event-Driven Communication
 
 ## Function
 - Memory cache with Redis
@@ -43,5 +48,4 @@ Aside from .NET Core, numerous technologies are used within this solution includ
     - Dotnet build test,publish
     - Docker build and push docker hub
     - CD wiht GoCD
-
 

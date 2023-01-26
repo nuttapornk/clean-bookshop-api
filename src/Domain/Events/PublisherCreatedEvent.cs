@@ -5,10 +5,10 @@ namespace Domain.Events;
 
 public class PublisherCreatedEvent : BaseEvent
 {
-	public PublisherCreatedEvent(Publisher item)
+    public Publisher Item { get; }
+
+    public PublisherCreatedEvent(Publisher item)
 	{
 		Item = item;
-	}
-
-	public Publisher Item { get; }
+	}	
 }
